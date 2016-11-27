@@ -59,11 +59,39 @@ def count_longest_title(file_name):
             longest = len(i)
         else:
             continue
-
     return longest
 
+#5
+def get_date_avg(file_name):
+    fr = open(file_name, "r")
+    data = fr.read().split("\n")
+    data = filter(None, data)
+    data_2dlist = []
+    year_list = []
+    for i in data:
+        data_2dlist.append(i.strip("\n").strip(" ").split("\t"))
+    for i in data_2dlist:
+        year_list.append(float(i[2]))
+    return round(sum(year_list) / len(year_list))
 
-
+#6
+def get_game(file_name, title):
+    fr = open(file_name, "r")
+    data = fr.read().split("\n")
+    data = filter(None, data)
+    data_2dlist = []
+    game_props = []
+    for i in data:
+        data_2dlist.append(i.strip("\n").strip(" ").split("\t"))
+    for i in data_2dlist:
+        if i[0] == title:
+            game_props.append(i[0])
+            game_props.append(float(i[1]))
+            game_props.append(int(i[2]))
+            game_props.append(i[3])
+            game_props.append(i[4])
+            return game_props
+    raise ValueError("theres no games matching that title")
 
 # bonus1
 def count_grouped_by_genre(file_name):
@@ -95,11 +123,6 @@ def get_date_ordered(file_name):
     for i in data_2dlist:
         list_of_titles.append(i[0])
     return list_of_titles
-
-    
-
-
-
 
 if __name__ == "__main__":
     main()
